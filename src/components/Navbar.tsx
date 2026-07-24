@@ -1,16 +1,30 @@
 import React from 'react';
-import { Download, Sparkles, Gamepad2, UploadCloud, ShieldCheck } from 'lucide-react';
+import { Download, Sparkles, Gamepad2, UploadCloud, ShieldCheck, User, LogOut } from 'lucide-react';
 import logoImg from '../assets/logo.png';
+import type { UserSession } from './AuthModal';
 
 interface NavbarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  session: UserSession | null;
+  onOpenAuthModal: () => void;
+  onLogout: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
+export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, session, onOpenAuthModal, onLogout }) => {
+  const isDev = session?.role === 'developer';
+
+  const handleDevPortalClick = () => {
+    if (isDev) {
+      setActiveTab('developer');
+    } else {
+      onOpenAuthModal();
+    }
+  };
+
   return (
-    <header style={{ position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(16px)', backgroundColor: 'rgba(11, 14, 20, 0.88)', borderBottom: '1px solid var(--border-stroke)' }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '12px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <header style={{ position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(16px)', backgroundColor: 'rgba(11, 14, 20, 0.88)', borderBottom: '1px solid var(--border-stroke)', width: '100%' }}>
+      <div style={{ width: '100%', maxWidth: '1400px', margin: '0 auto', padding: '12px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxSizing: 'border-box' }}>
         {/* Official Brand Logo */}
         <div onClick={() => setActiveTab('home')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '14px' }}>
           <img
@@ -29,47 +43,134 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
         </div>
 
         {/* Navigation Tabs */}
-        <nav style={{ display: 'flex', gap: '8px' }}>
-          {[
-            { id: 'home', label: 'Home', icon: Sparkles },
-            { id: 'store', label: 'Store Catalog', icon: Gamepad2 },
-            { id: 'download', label: 'Download App', icon: Download },
-            { id: 'developer', label: 'Developer Portal', icon: UploadCloud },
-            { id: 'web3', label: 'x402 Protocol', icon: ShieldCheck },
-          ].map((item) => {
-            const Icon = item.icon;
-            const isActive = activeTab === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => setActiveTab(item.id)}
-                style={{
-                  padding: '8px 16px',
-                  borderRadius: '8px',
-                  border: isActive ? '1px solid var(--accent-gold)' : '1px solid transparent',
-                  backgroundColor: isActive ? 'rgba(212, 175, 55, 0.12)' : 'transparent',
-                  color: isActive ? 'var(--accent-gold)' : 'var(--text-secondary)',
-                  fontWeight: 600,
-                  fontSize: '0.88rem',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  transition: 'all 0.2s ease',
-                }}
-              >
-                <Icon size={16} color={isActive ? 'var(--accent-gold)' : 'var(--text-muted)'} />
-                {item.label}
-              </button>
-            );
-          })}
+        <nav style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <button
+            onClick={() => setActiveTab('home')}
+            style={{
+              padding: '8px 16px',
+              borderRadius: '8px',
+              border: activeTab === 'home' ? '1px solid var(--accent-gold)' : '1px solid transparent',
+              backgroundColor: activeTab === 'home' ? 'rgba(212, 175, 55, 0.12)' : 'transparent',
+              color: activeTab === 'home' ? 'var(--accent-gold)' : 'var(--text-secondary)',
+              fontWeight: 600,
+              fontSize: '0.88rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+          >
+            <Sparkles size={16} color={activeTab === 'home' ? 'var(--accent-gold)' : 'var(--text-muted)'} />
+            Home
+          </button>
+
+          <button
+            onClick={() => setActiveTab('store')}
+            style={{
+              padding: '8px 16px',
+              borderRadius: '8px',
+              border: activeTab === 'store' ? '1px solid var(--accent-gold)' : '1px solid transparent',
+              backgroundColor: activeTab === 'store' ? 'rgba(212, 175, 55, 0.12)' : 'transparent',
+              color: activeTab === 'store' ? 'var(--accent-gold)' : 'var(--text-secondary)',
+              fontWeight: 600,
+              fontSize: '0.88rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+          >
+            <Gamepad2 size={16} color={activeTab === 'store' ? 'var(--accent-gold)' : 'var(--text-muted)'} />
+            Store Catalog
+          </button>
+
+          <button
+            onClick={() => setActiveTab('download')}
+            style={{
+              padding: '8px 16px',
+              borderRadius: '8px',
+              border: activeTab === 'download' ? '1px solid var(--accent-gold)' : '1px solid transparent',
+              backgroundColor: activeTab === 'download' ? 'rgba(212, 175, 55, 0.12)' : 'transparent',
+              color: activeTab === 'download' ? 'var(--accent-gold)' : 'var(--text-secondary)',
+              fontWeight: 600,
+              fontSize: '0.88rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+          >
+            <Download size={16} color={activeTab === 'download' ? 'var(--accent-gold)' : 'var(--text-muted)'} />
+            Download App
+          </button>
+
+          {/* Protected Developer Portal Tab */}
+          <button
+            onClick={handleDevPortalClick}
+            style={{
+              padding: '8px 16px',
+              borderRadius: '8px',
+              border: activeTab === 'developer' ? '1px solid var(--accent-gold)' : '1px solid transparent',
+              backgroundColor: activeTab === 'developer' ? 'rgba(212, 175, 55, 0.12)' : 'transparent',
+              color: isDev ? 'var(--accent-gold)' : 'var(--text-muted)',
+              fontWeight: 600,
+              fontSize: '0.88rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+            title={isDev ? 'Access Developer Self-Service Portal' : 'Sign in as Game Developer to access'}
+          >
+            <UploadCloud size={16} color={isDev ? 'var(--accent-gold)' : 'var(--text-muted)'} />
+            Developer Portal {isDev ? '⚡' : '🔒'}
+          </button>
+
+          <button
+            onClick={() => setActiveTab('web3')}
+            style={{
+              padding: '8px 16px',
+              borderRadius: '8px',
+              border: activeTab === 'web3' ? '1px solid var(--accent-gold)' : '1px solid transparent',
+              backgroundColor: activeTab === 'web3' ? 'rgba(212, 175, 55, 0.12)' : 'transparent',
+              color: activeTab === 'web3' ? 'var(--accent-gold)' : 'var(--text-secondary)',
+              fontWeight: 600,
+              fontSize: '0.88rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+          >
+            <ShieldCheck size={16} color={activeTab === 'web3' ? 'var(--accent-gold)' : 'var(--text-muted)'} />
+            x402 Protocol
+          </button>
         </nav>
 
-        {/* Primary CTA */}
-        <button className="btn-gold" onClick={() => setActiveTab('download')}>
-          <Download size={16} />
-          Get Launcher (.exe)
-        </button>
+        {/* User Account Controls */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {session ? (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.12)', border: '1px solid rgba(212, 175, 55, 0.3)', padding: '6px 12px', borderRadius: '8px', fontSize: '0.8rem', color: 'var(--accent-gold)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <User size={14} />
+                <span>{session.developer_name || session.username} ({session.role})</span>
+              </div>
+              <button onClick={onLogout} className="btn-outline" style={{ padding: '6px 10px', fontSize: '0.78rem' }} title="Sign Out">
+                <LogOut size={14} />
+              </button>
+            </div>
+          ) : (
+            <button className="btn-outline" onClick={onOpenAuthModal} style={{ fontSize: '0.88rem' }}>
+              <User size={16} />
+              Sign In / Dev Login
+            </button>
+          )}
+
+          <button className="btn-gold" onClick={() => setActiveTab('download')}>
+            <Download size={16} />
+            Get Launcher (.exe)
+          </button>
+        </div>
       </div>
     </header>
   );

@@ -1,20 +1,28 @@
 import React, { useState } from 'react';
-import { UploadCloud, Sparkles, Loader2, Server } from 'lucide-react';
+import { UploadCloud, Sparkles, Loader2, Server, Lock, UserCheck } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { submitGameToDeveloperPortal } from '../lib/supabase';
+import type { UserSession } from './AuthModal';
 
-export const DeveloperPortalSection: React.FC = () => {
+interface DeveloperPortalSectionProps {
+  session: UserSession | null;
+  onOpenAuthModal: () => void;
+}
+
+export const DeveloperPortalSection: React.FC<DeveloperPortalSectionProps> = ({ session, onOpenAuthModal }) => {
+  const isDev = session?.role === 'developer';
+
   const [formData, setFormData] = useState({
     title: '',
-    developer_name: '',
-    email: '',
+    developer_name: session?.developer_name || session?.username || '',
+    email: session?.email || '',
     category: 'Action / RPG',
     price: '9.99',
     description: '',
     tag: 'Indie Spotlight',
     download_url: '',
-    dev_wallet_sol: '',
-    dev_wallet_evm: '',
+    dev_wallet_sol: session?.dev_wallet_sol || '',
+    dev_wallet_evm: session?.dev_wallet_evm || '',
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -55,15 +63,15 @@ export const DeveloperPortalSection: React.FC = () => {
         confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
         setFormData({
           title: '',
-          developer_name: '',
-          email: '',
+          developer_name: session?.developer_name || session?.username || '',
+          email: session?.email || '',
           category: 'Action / RPG',
           price: '9.99',
           description: '',
           tag: 'Indie Spotlight',
           download_url: '',
-          dev_wallet_sol: '',
-          dev_wallet_evm: '',
+          dev_wallet_sol: session?.dev_wallet_sol || '',
+          dev_wallet_evm: session?.dev_wallet_evm || '',
         });
       } else {
         setErrorMsg(res.message || 'Error publishing game.');
@@ -75,13 +83,36 @@ export const DeveloperPortalSection: React.FC = () => {
     }
   };
 
+  if (!isDev) {
+    return (
+      <section style={{ padding: '80px 24px', maxWidth: '720px', margin: '0 auto', textAlign: 'center' }}>
+        <div className="glass-panel" style={{ padding: '48px 32px', border: '1px solid var(--accent-gold)' }}>
+          <div style={{ width: '64px', height: '64px', borderRadius: '16px', backgroundColor: 'rgba(212, 175, 55, 0.15)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
+            <Lock size={32} color="var(--accent-gold)" />
+          </div>
+          <h2 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '2rem', fontWeight: 800, marginBottom: '12px' }}>
+            DEVELOPER PORTAL ACCESS RESTRICTED
+          </h2>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.6, marginBottom: '28px' }}>
+            The Developer Portal is reserved for registered game studios and indie developers. Please sign in or register as a <strong>Game Developer</strong> to upload titles and configure payout wallets.
+          </p>
+
+          <button className="btn-gold glow-pulse" onClick={onOpenAuthModal} style={{ padding: '14px 32px', fontSize: '1rem' }}>
+            <UserCheck size={18} />
+            Sign In / Register as Developer
+          </button>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section style={{ padding: '60px 24px', maxWidth: '980px', margin: '0 auto' }}>
       <div style={{ textAlign: 'center', marginBottom: '40px' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(23, 145, 158, 0.15)', border: '1px solid rgba(23, 145, 158, 0.3)', padding: '6px 16px', borderRadius: '20px', marginBottom: '16px' }}>
           <Sparkles size={16} color="var(--accent-turquoise)" />
           <span style={{ color: 'var(--accent-turquoise)', fontSize: '0.85rem', fontWeight: 700 }}>
-            SELF-HOSTED INDIE DEVELOPER PORTAL
+            AUTHENTICATED DEVELOPER PORTAL • {session?.developer_name || session?.username}
           </span>
         </div>
         <h2 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '2.4rem', fontWeight: 800, marginBottom: '12px' }}>
