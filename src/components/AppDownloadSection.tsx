@@ -10,14 +10,14 @@ export const AppDownloadSection: React.FC = () => {
       file: 'Ankhvault-Launcher-v3.0.0-Setup.exe',
       size: '18.4 MB',
       requirements: 'Windows 10 / 11 (64-bit)',
-      url: 'https://github.com/Duat-Studio/Ankhvault/releases/download/v3.0.0/Ankhvault-Launcher-v3.0.0-Setup.exe',
+      url: 'https://github.com/Duat-Studio/Ankhvault/releases',
     },
     linux: {
       title: 'Ankhvault Launcher for Linux',
       file: 'Ankhvault-Launcher-v3.0.0.AppImage',
       size: '17.8 MB',
       requirements: 'Ubuntu 22.04+ / Arch / Debian / Fedora',
-      url: 'https://github.com/Duat-Studio/Ankhvault/releases/download/v3.0.0/Ankhvault-Launcher-v3.0.0.AppImage',
+      url: 'https://github.com/Duat-Studio/Ankhvault/releases',
     },
   };
 
@@ -30,11 +30,11 @@ export const AppDownloadSection: React.FC = () => {
           DOWNLOAD ANKHVAULT DESKTOP LAUNCHER
         </h2>
         <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', maxWidth: '640px', margin: '0 auto' }}>
-          Available natively for Windows and Linux. Experience maximum gaming performance, AES-256 cloud sync, and 1:1 USD Stablecoin game purchases.
+          Available natively for Windows and Linux. All games must be launched and downloaded inside the Ankhvault Desktop Client.
         </p>
       </div>
 
-      {/* OS Selector Tabs (Strictly Windows & Linux) */}
+      {/* OS Selector Tabs (Windows & Linux Only) */}
       <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginBottom: '32px' }}>
         {[
           { id: 'windows', label: '🪟 Windows (.exe)' },
@@ -70,7 +70,7 @@ export const AppDownloadSection: React.FC = () => {
             </h3>
           </div>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', marginBottom: '20px' }}>
-            Official release built on <strong>Rust + Tauri 2.0 Engine v3.0.0</strong> with zero bloatware and instant game installer support.
+            Official release built on <strong>Rust + Tauri 2.0 Engine</strong> with sub-50MB RAM consumption and AES-256 vault encryption.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '24px' }}>
@@ -88,19 +88,19 @@ export const AppDownloadSection: React.FC = () => {
             </div>
           </div>
 
-          <a href={activeDl.url} className="btn-gold glow-pulse" style={{ padding: '14px 28px', fontSize: '1rem' }} download>
+          <a href={activeDl.url} target="_blank" rel="noreferrer" className="btn-gold glow-pulse" style={{ padding: '14px 28px', fontSize: '1rem' }}>
             <Download size={18} />
-            Download {activeDl.file}
+            Get Ankhvault Client on GitHub Releases
           </a>
         </div>
 
         <div className="glass-panel" style={{ padding: '24px', backgroundColor: 'rgba(11, 14, 20, 0.7)', textAlign: 'center' }}>
           <HardDrive size={40} color="var(--accent-turquoise)" style={{ marginBottom: '12px' }} />
           <h4 style={{ color: 'var(--text-primary)', fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
-            Release Version 3.0.0
+            Official Releases
           </h4>
           <span style={{ color: 'var(--accent-turquoise)', fontSize: '0.8rem', backgroundColor: 'rgba(23, 145, 158, 0.2)', padding: '4px 10px', borderRadius: '12px', border: '1px solid rgba(23, 145, 158, 0.3)' }}>
-            Windows & Linux Production Build
+            Windows & Linux Desktop Builds
           </span>
         </div>
       </div>

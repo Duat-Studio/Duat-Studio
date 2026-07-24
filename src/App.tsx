@@ -50,13 +50,15 @@ export function App() {
                 }
               }}
             />
-            <StoreCatalogSection />
+            <StoreCatalogSection onGoToDownloadApp={() => setActiveTab('download')} />
             <AppDownloadSection />
             <Web3SettlementSection />
           </>
         )}
 
-        {activeTab === 'store' && <StoreCatalogSection />}
+        {activeTab === 'store' && (
+          <StoreCatalogSection onGoToDownloadApp={() => setActiveTab('download')} />
+        )}
 
         {activeTab === 'download' && <AppDownloadSection />}
 

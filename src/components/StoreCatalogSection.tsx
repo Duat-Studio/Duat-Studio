@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Star, Download } from 'lucide-react';
+import { Star, Monitor, Download, X } from 'lucide-react';
 import { fetchCatalogFromSupabase } from '../lib/supabase';
 
 interface GameItem {
@@ -10,13 +10,17 @@ interface GameItem {
   rating: number;
   description: string;
   tag: string;
-  download_url: string;
   developer_name?: string;
 }
 
-export const StoreCatalogSection: React.FC = () => {
+interface StoreCatalogSectionProps {
+  onGoToDownloadApp: () => void;
+}
+
+export const StoreCatalogSection: React.FC<StoreCatalogSectionProps> = ({ onGoToDownloadApp }) => {
   const [games, setGames] = useState<GameItem[]>([]);
   const [selectedGenre, setSelectedGenre] = useState<string>('All');
+  const [selectedGamePrompt, setSelectedGamePrompt] = useState<GameItem | null>(null);
 
   useEffect(() => {
     fetchCatalogFromSupabase().then((data) => {
@@ -30,18 +34,17 @@ export const StoreCatalogSection: React.FC = () => {
             rating: Number(item.rating || 5.0),
             description: item.description,
             tag: item.tag || 'Featured',
-            download_url: item.download_url,
             developer_name: item.developer_name || 'Independent Publisher',
           }))
         );
       } else {
         // Default catalog fallback
         setGames([
-          { id: 'kemet', title: 'Shadow of Kemet', category: 'Action / RPG', price: 14.99, rating: 4.9, description: 'Unravel ancient temple mysteries and slay mythical guardians in ancient Egypt.', tag: 'Flagship Title', download_url: '#', developer_name: 'Duat Studio' },
-          { id: 'racer', title: 'Nomad Racer', category: 'Cyberpunk Racing', price: 9.99, rating: 4.7, description: 'High-octane neon drag racing across futuristic desert highways.', tag: 'Best Seller', download_url: '#', developer_name: 'Apex Velocity' },
-          { id: 'aegis', title: 'Aegis Protocol', category: 'Tactical Shooter', price: 0.00, rating: 4.8, description: 'Competitive squad tactics and cybernetic combat in a dystopian city.', tag: 'Free to Play', download_url: '#', developer_name: 'Ironclad Interactive' },
-          { id: 'duat', title: 'Chronicles of Duat', category: 'Strategy / Deckbuilder', price: 4.99, rating: 4.6, description: 'Master ritual spells and summon celestial pharaohs in turn-based combat.', tag: 'New Release', download_url: '#', developer_name: 'Duat Studio' },
-          { id: 'neon', title: 'Neon Odyssey', category: 'Space Simulator', price: 14.99, rating: 4.9, description: 'Explore uncharted galaxy sectors, mine rare plasma ores, and command dreadnoughts.', tag: 'Featured', download_url: '#', developer_name: 'SynthWave Interactive' },
+          { id: 'kemet', title: 'Shadow of Kemet', category: 'Action / RPG', price: 14.99, rating: 4.9, description: 'Unravel ancient temple mysteries and slay mythical guardians in ancient Egypt.', tag: 'Flagship Title', developer_name: 'Duat Studio' },
+          { id: 'racer', title: 'Nomad Racer', category: 'Cyberpunk Racing', price: 9.99, rating: 4.7, description: 'High-octane neon drag racing across futuristic desert highways.', tag: 'Best Seller', developer_name: 'Apex Velocity' },
+          { id: 'aegis', title: 'Aegis Protocol', category: 'Tactical Shooter', price: 0.00, rating: 4.8, description: 'Competitive squad tactics and cybernetic combat in a dystopian city.', tag: 'Free to Play', developer_name: 'Ironclad Interactive' },
+          { id: 'duat', title: 'Chronicles of Duat', category: 'Strategy / Deckbuilder', price: 4.99, rating: 4.6, description: 'Master ritual spells and summon celestial pharaohs in turn-based combat.', tag: 'New Release', developer_name: 'Duat Studio' },
+          { id: 'neon', title: 'Neon Odyssey', category: 'Space Simulator', price: 14.99, rating: 4.9, description: 'Explore uncharted galaxy sectors, mine rare plasma ores, and command dreadnoughts.', tag: 'Featured', developer_name: 'SynthWave Interactive' },
         ]);
       }
     });
@@ -58,7 +61,7 @@ export const StoreCatalogSection: React.FC = () => {
           ANKHVAULT STORE CATALOG
         </h2>
         <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', maxWidth: '640px', margin: '0 auto' }}>
-          Explore flagship games and indie releases available on the Ankhvault Desktop Launcher.
+          Explore flagship games and indie releases. All games are purchased, installed, and launched exclusively inside the Ankhvault Desktop App.
         </p>
       </div>
 
@@ -118,14 +121,50 @@ export const StoreCatalogSection: React.FC = () => {
                 </span>
               </div>
 
-              <a href={game.download_url} className={game.price === 0 ? "btn-turquoise" : "btn-gold"} style={{ padding: '8px 16px', fontSize: '0.85rem' }}>
-                <Download size={14} />
-                Get Game
-              </a>
+              {/* Action Button: Prompts user to open/download Ankhvault Launcher */}
+              <button
+                onClick={() => setSelectedGamePrompt(game)}
+                className="btn-gold"
+                style={{ padding: '8px 16px', fontSize: '0.85rem' }}
+              >
+                <Monitor size={14} />
+                Play in Launcher
+              </button>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Modal Prompt: Games can only be downloaded inside Ankhvault Launcher */}
+      {selectedGamePrompt && (
+        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(5, 7, 10, 0.88)', backdropFilter: 'blur(12px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '20px' }}>
+          <div className="glass-panel animate-fade-in" style={{ width: '480px', padding: '32px', textAlign: 'center', position: 'relative', border: '1px solid var(--accent-gold)' }}>
+            <button onClick={() => setSelectedGamePrompt(null)} style={{ position: 'absolute', right: '20px', top: '20px', background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>
+              <X size={20} />
+            </button>
+
+            <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: 'rgba(212, 175, 55, 0.15)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+              <Monitor size={28} color="var(--accent-gold)" />
+            </div>
+
+            <h3 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '1.4rem', fontWeight: 800, marginBottom: '8px' }}>
+              Play {selectedGamePrompt.title}
+            </h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: '24px' }}>
+              To ensure vault security and instant installations, games can <strong>only be purchased, downloaded, and launched inside the Ankhvault Desktop App</strong>.
+            </p>
+
+            <button
+              className="btn-gold glow-pulse"
+              onClick={() => { setSelectedGamePrompt(null); onGoToDownloadApp(); }}
+              style={{ width: '100%', justifyContent: 'center', padding: '14px', fontSize: '1rem' }}
+            >
+              <Download size={18} />
+              Download Ankhvault Launcher (.exe)
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
