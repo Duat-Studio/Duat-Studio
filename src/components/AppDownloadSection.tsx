@@ -7,14 +7,14 @@ export const AppDownloadSection: React.FC = () => {
   const downloads = {
     windows: {
       title: 'Ankhvault Launcher for Windows',
-      file: 'Ankhvault-Launcher-v3.0.0-Setup.exe',
+      file: 'Ankhvault_1.0.0_x64-setup.exe',
       size: '18.4 MB',
       requirements: 'Windows 10 / 11 (64-bit)',
       url: 'https://github.com/Duat-Studio/Ankhvault/releases',
     },
     linux: {
       title: 'Ankhvault Launcher for Linux',
-      file: 'Ankhvault-Launcher-v3.0.0.AppImage',
+      file: 'Ankhvault_1.0.0_amd64.AppImage',
       size: '17.8 MB',
       requirements: 'Ubuntu 22.04+ / Arch / Debian / Fedora',
       url: 'https://github.com/Duat-Studio/Ankhvault/releases',
@@ -70,7 +70,7 @@ export const AppDownloadSection: React.FC = () => {
             </h3>
           </div>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', marginBottom: '20px' }}>
-            Official release built on <strong>Rust + Tauri 2.0 Engine</strong> with sub-50MB RAM consumption and AES-256 vault encryption.
+            Official release built on <strong>Rust + Tauri 2.0 Engine v1.0.0</strong> with sub-50MB RAM consumption and AES-256 vault encryption.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '24px' }}>
@@ -97,7 +97,7 @@ export const AppDownloadSection: React.FC = () => {
         <div className="glass-panel" style={{ padding: '24px', backgroundColor: 'rgba(11, 14, 20, 0.7)', textAlign: 'center' }}>
           <HardDrive size={40} color="var(--accent-turquoise)" style={{ marginBottom: '12px' }} />
           <h4 style={{ color: 'var(--text-primary)', fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
-            Official Releases
+            Release Version 1.0.0
           </h4>
           <span style={{ color: 'var(--accent-turquoise)', fontSize: '0.8rem', backgroundColor: 'rgba(23, 145, 158, 0.2)', padding: '4px 10px', borderRadius: '12px', border: '1px solid rgba(23, 145, 158, 0.3)' }}>
             Windows & Linux Desktop Builds
