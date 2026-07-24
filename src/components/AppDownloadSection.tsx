@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Download, Monitor, HardDrive, CheckCircle2 } from 'lucide-react';
 
 export const AppDownloadSection: React.FC = () => {
-  const [selectedOs, setSelectedOs] = useState<'windows' | 'mac' | 'linux'>('windows');
+  const [selectedOs, setSelectedOs] = useState<'windows' | 'linux'>('windows');
 
   const downloads = {
     windows: {
@@ -12,18 +12,11 @@ export const AppDownloadSection: React.FC = () => {
       requirements: 'Windows 10 / 11 (64-bit)',
       url: 'https://github.com/Duat-Studio/Ankhvault/releases/download/v3.0.0/Ankhvault-Launcher-v3.0.0-Setup.exe',
     },
-    mac: {
-      title: 'Ankhvault Launcher for macOS',
-      file: 'Ankhvault-Launcher-v3.0.0.dmg',
-      size: '19.2 MB',
-      requirements: 'macOS 12.0+ (Apple Silicon & Intel)',
-      url: 'https://github.com/Duat-Studio/Ankhvault/releases/download/v3.0.0/Ankhvault-Launcher-v3.0.0.dmg',
-    },
     linux: {
       title: 'Ankhvault Launcher for Linux',
       file: 'Ankhvault-Launcher-v3.0.0.AppImage',
       size: '17.8 MB',
-      requirements: 'Ubuntu 22.04+ / Arch / Fedora',
+      requirements: 'Ubuntu 22.04+ / Arch / Debian / Fedora',
       url: 'https://github.com/Duat-Studio/Ankhvault/releases/download/v3.0.0/Ankhvault-Launcher-v3.0.0.AppImage',
     },
   };
@@ -37,28 +30,27 @@ export const AppDownloadSection: React.FC = () => {
           DOWNLOAD ANKHVAULT DESKTOP LAUNCHER
         </h2>
         <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', maxWidth: '640px', margin: '0 auto' }}>
-          Experience maximum gaming performance, AES-256 cloud sync, and 1:1 USD Stablecoin game purchases.
+          Available natively for Windows and Linux. Experience maximum gaming performance, AES-256 cloud sync, and 1:1 USD Stablecoin game purchases.
         </p>
       </div>
 
-      {/* OS Selector Tabs */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginBottom: '32px' }}>
+      {/* OS Selector Tabs (Strictly Windows & Linux) */}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginBottom: '32px' }}>
         {[
-          { id: 'windows', label: 'Windows (.exe)' },
-          { id: 'mac', label: 'macOS (.dmg)' },
-          { id: 'linux', label: 'Linux (.AppImage)' },
+          { id: 'windows', label: '🪟 Windows (.exe)' },
+          { id: 'linux', label: '🐧 Linux (.AppImage)' },
         ].map((os) => (
           <button
             key={os.id}
             onClick={() => setSelectedOs(os.id as any)}
             style={{
-              padding: '12px 24px',
+              padding: '14px 32px',
               borderRadius: '10px',
               border: selectedOs === os.id ? '1px solid var(--accent-gold)' : '1px solid var(--border-stroke)',
               backgroundColor: selectedOs === os.id ? 'rgba(212, 175, 55, 0.18)' : 'rgba(22, 27, 38, 0.6)',
               color: selectedOs === os.id ? 'var(--accent-gold)' : 'var(--text-secondary)',
               fontWeight: 700,
-              fontSize: '0.95rem',
+              fontSize: '1rem',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
             }}
@@ -108,7 +100,7 @@ export const AppDownloadSection: React.FC = () => {
             Release Version 3.0.0
           </h4>
           <span style={{ color: 'var(--accent-turquoise)', fontSize: '0.8rem', backgroundColor: 'rgba(23, 145, 158, 0.2)', padding: '4px 10px', borderRadius: '12px', border: '1px solid rgba(23, 145, 158, 0.3)' }}>
-            Stable Production Build
+            Windows & Linux Production Build
           </span>
         </div>
       </div>

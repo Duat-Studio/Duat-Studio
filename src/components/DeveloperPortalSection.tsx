@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UploadCloud, Sparkles, Loader2 } from 'lucide-react';
+import { UploadCloud, Sparkles, Loader2, Server } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { submitGameToDeveloperPortal } from '../lib/supabase';
 
@@ -28,7 +28,7 @@ export const DeveloperPortalSection: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.title || !formData.developer_name || !formData.email || !formData.download_url) {
-      setErrorMsg('Please fill in all required fields (Game Title, Developer Name, Email, Download URL).');
+      setErrorMsg('Please fill in all required fields (Game Title, Developer Name, Email, Download Package URL).');
       return;
     }
 
@@ -51,7 +51,7 @@ export const DeveloperPortalSection: React.FC = () => {
       });
 
       if (res.success) {
-        setSuccessMsg(`Congratulations! "${formData.title}" has been published to the Ankhvault store catalog with 95% revenue split!`);
+        setSuccessMsg(`Congratulations! "${formData.title}" has been published to the Ankhvault store catalog with 95% revenue split! Players will download directly from your server URL.`);
         confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
         setFormData({
           title: '',
@@ -76,20 +76,35 @@ export const DeveloperPortalSection: React.FC = () => {
   };
 
   return (
-    <section style={{ padding: '60px 24px', maxWidth: '960px', margin: '0 auto' }}>
+    <section style={{ padding: '60px 24px', maxWidth: '980px', margin: '0 auto' }}>
       <div style={{ textAlign: 'center', marginBottom: '40px' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(23, 145, 158, 0.15)', border: '1px solid rgba(23, 145, 158, 0.3)', padding: '6px 16px', borderRadius: '20px', marginBottom: '16px' }}>
           <Sparkles size={16} color="var(--accent-turquoise)" />
           <span style={{ color: 'var(--accent-turquoise)', fontSize: '0.85rem', fontWeight: 700 }}>
-            DEVELOPER SELF-SERVICE PORTAL
+            SELF-HOSTED INDIE DEVELOPER PORTAL
           </span>
         </div>
         <h2 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '2.4rem', fontWeight: 800, marginBottom: '12px' }}>
-          PUBLISH YOUR GAME & KEEP 95% REVENUE
+          HOST ON YOUR SERVER • KEEP 95% REVENUE
         </h2>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', maxWidth: '680px', margin: '0 auto' }}>
-          Register your developer profile, submit your game binary URL, and configure your Solana / Base EVM payout wallets for instant 1:1 USD Stablecoin settlement.
+        <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', maxWidth: '720px', margin: '0 auto' }}>
+          Host your game package (.zip / .exe / .AppImage) on your own web server, AWS S3, Cloudflare R2, or CDN. Players download directly from your server while you collect 95% revenue in USDT / USDC.
         </p>
+      </div>
+
+      {/* Zero-Host-Cost Architecture Banner */}
+      <div className="glass-panel" style={{ padding: '24px', marginBottom: '32px', border: '1px solid var(--accent-turquoise)', backgroundColor: 'rgba(23, 145, 158, 0.08)', display: 'flex', alignItems: 'center', gap: '18px' }}>
+        <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: 'rgba(23, 145, 158, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+          <Server size={26} color="var(--accent-turquoise)" />
+        </div>
+        <div>
+          <h4 style={{ color: 'var(--accent-turquoise)', fontSize: '1.05rem', fontWeight: 700, marginBottom: '4px' }}>
+            ⚡ Self-Hosted Storage & Direct Download CDN
+          </h4>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.5 }}>
+            No third-party upload restrictions. Simply host your game file on your server or cloud storage (AWS S3, Cloudflare R2, Google Cloud, itch.io direct link, or custom domain). Ankhvault desktop client streams downloads directly from your link.
+          </p>
+        </div>
       </div>
 
       <form onSubmit={handleSubmit} className="glass-panel" style={{ padding: '36px', border: '1px solid var(--accent-gold)', backgroundColor: 'rgba(22, 27, 38, 0.85)' }}>
@@ -181,18 +196,21 @@ export const DeveloperPortalSection: React.FC = () => {
         </div>
 
         <div style={{ marginBottom: '16px' }}>
-          <label style={{ display: 'block', color: 'var(--text-secondary)', fontSize: '0.82rem', fontWeight: 600, marginBottom: '6px' }}>
-            Download Package ZIP URL *
+          <label style={{ display: 'block', color: 'var(--accent-gold)', fontSize: '0.82rem', fontWeight: 600, marginBottom: '6px' }}>
+            Developer Server / Direct Download Package URL (.zip / .exe) *
           </label>
           <input
             type="url"
             name="download_url"
-            placeholder="https://github.com/username/repo/releases/download/v1.0/game.zip"
+            placeholder="https://downloads.yourstudio.com/releases/v1.0/game.zip"
             value={formData.download_url}
             onChange={handleChange}
             style={{ width: '100%', padding: '10px 14px', backgroundColor: 'rgba(11, 14, 20, 0.8)', border: '1px solid var(--border-stroke)', borderRadius: '8px', color: 'var(--text-primary)', outline: 'none' }}
             required
           />
+          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px', display: 'block' }}>
+            Direct HTTPS download link hosted on your server, Cloudflare R2, AWS S3, or CDN.
+          </span>
         </div>
 
         <div style={{ marginBottom: '24px' }}>
@@ -260,12 +278,12 @@ export const DeveloperPortalSection: React.FC = () => {
           {isSubmitting ? (
             <>
               <Loader2 size={18} className="animate-spin" />
-              Publishing Game to Ankhvault Cloud Database...
+              Publishing Game Entry to Ankhvault Cloud Database...
             </>
           ) : (
             <>
               <UploadCloud size={18} />
-              Publish Game to Ankhvault (95% Dev Revenue Split)
+              Publish Game to Ankhvault (Self-Hosted Direct Download)
             </>
           )}
         </button>

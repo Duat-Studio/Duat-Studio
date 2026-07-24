@@ -1,5 +1,6 @@
 import React from 'react';
 import { Download, Sparkles, Gamepad2, UploadCloud, ShieldCheck } from 'lucide-react';
+import logoImg from '../assets/logo.png';
 
 interface NavbarProps {
   activeTab: string;
@@ -8,15 +9,17 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   return (
-    <header style={{ position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(16px)', backgroundColor: 'rgba(11, 14, 20, 0.85)', borderBottom: '1px solid var(--border-stroke)' }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        {/* Brand Logo */}
-        <div onClick={() => setActiveTab('home')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'linear-gradient(135deg, #D4AF37, #17919E)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 16px rgba(212, 175, 55, 0.3)' }}>
-            <span style={{ fontFamily: 'var(--font-cinzel)', color: '#0B0E14', fontSize: '1.4rem', fontWeight: 900 }}>☥</span>
-          </div>
+    <header style={{ position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(16px)', backgroundColor: 'rgba(11, 14, 20, 0.88)', borderBottom: '1px solid var(--border-stroke)' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '12px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        {/* Official Brand Logo */}
+        <div onClick={() => setActiveTab('home')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <img
+            src={logoImg}
+            alt="Duat Studio Logo"
+            style={{ width: '42px', height: '42px', objectFit: 'contain', filter: 'drop-shadow(0 2px 8px rgba(212, 175, 55, 0.4))' }}
+          />
           <div>
-            <h1 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '1.3rem', fontWeight: 800, letterSpacing: '1px', lineHeight: 1 }}>
+            <h1 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '1.35rem', fontWeight: 800, letterSpacing: '1px', lineHeight: 1 }}>
               DUAT STUDIO
             </h1>
             <span style={{ color: 'var(--text-muted)', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 600 }}>
