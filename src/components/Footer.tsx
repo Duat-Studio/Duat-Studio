@@ -1,5 +1,4 @@
 import React from 'react';
-import { ShieldCheck, Code } from 'lucide-react';
 import logoImg from '../assets/logo.png';
 
 export const Footer: React.FC = () => {
@@ -9,33 +8,10 @@ export const Footer: React.FC = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <img src={logoImg} alt="Duat Studio Logo" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
           <span style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '1.1rem', fontWeight: 800 }}>DUAT STUDIO</span>
-          <span>•</span>
-          <span>Ankhvault Desktop Game Launcher (Windows .exe)</span>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <a
-            href="https://github.com/Duat-Studio/Duat-Studio"
-            target="_blank"
-            rel="noreferrer"
-            style={{ color: 'var(--text-secondary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px' }}
-          >
-            <Code size={16} />
-            Duat Studio Website Repo
-          </a>
-          <a
-            href="https://github.com/Duat-Studio/Ankhvault"
-            target="_blank"
-            rel="noreferrer"
-            style={{ color: 'var(--text-secondary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px' }}
-          >
-            <ShieldCheck size={16} color="var(--accent-gold)" />
-            Ankhvault Client Repo
-          </a>
         </div>
 
         <div style={{ textAlign: 'right' }}>
-          &copy; 2026 Duat Studio. All rights reserved. Built with Rust, Tauri 2.0 & React.
+          &copy; 2026 Duat Studio. All rights reserved.
         </div>
       </div>
     </footer>
