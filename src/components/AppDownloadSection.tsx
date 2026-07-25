@@ -1,14 +1,8 @@
 import React from 'react';
-import { Download, Monitor, HardDrive, CheckCircle2 } from 'lucide-react';
+import { Download, Monitor, HardDrive, CheckCircle2, ShieldCheck } from 'lucide-react';
 
 export const AppDownloadSection: React.FC = () => {
-  const downloadInfo = {
-    title: 'Ankhvault Launcher for Windows',
-    file: 'Ankhvault_1.0.0_x64-setup.exe',
-    size: '18.4 MB',
-    requirements: 'Windows 10 / 11 (64-bit)',
-    url: 'https://github.com/Duat-Studio/Ankhvault/releases/latest/download/Ankhvault_1.0.0_x64-setup.exe',
-  };
+  const downloadUrl = 'https://github.com/Duat-Studio/Ankhvault/releases/latest';
 
   return (
     <section style={{ padding: '60px 24px', maxWidth: '1100px', margin: '0 auto' }}>
@@ -17,51 +11,82 @@ export const AppDownloadSection: React.FC = () => {
           DOWNLOAD ANKHVAULT DESKTOP LAUNCHER
         </h2>
         <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', maxWidth: '640px', margin: '0 auto' }}>
-          Available natively for 64-bit Windows (.exe). All games are downloaded and managed securely inside the Ankhvault Desktop Client.
+          Available natively for 64-bit Windows. Download and manage your game library securely inside the Ankhvault Desktop Client.
         </p>
       </div>
 
       {/* Download Box */}
-      <div className="glass-panel" style={{ padding: '36px', border: '1px solid var(--accent-gold)', backgroundColor: 'rgba(212, 175, 55, 0.05)', display: 'grid', gridTemplateColumns: '1fr 300px', gap: '32px', alignItems: 'center' }}>
+      <div
+        className="glass-panel"
+        style={{
+          padding: '36px',
+          border: '1px solid var(--accent-gold)',
+          backgroundColor: 'rgba(212, 175, 55, 0.05)',
+          display: 'grid',
+          gridTemplateColumns: '1fr 300px',
+          gap: '32px',
+          alignItems: 'center',
+          borderRadius: '16px',
+        }}
+      >
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
             <Monitor size={28} color="var(--accent-gold)" />
             <h3 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '1.5rem', fontWeight: 700 }}>
-              {downloadInfo.title}
+              Ankhvault Launcher for Windows
             </h3>
           </div>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', marginBottom: '20px' }}>
-            Official release built on <strong>Rust + Tauri 2.0 Engine v1.0.0</strong> with sub-50MB RAM consumption and AES-256 vault encryption.
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.94rem', lineHeight: '1.6', marginBottom: '20px' }}>
+            Official desktop client for Windows. High-performance gaming launcher featuring direct developer downloads, automated library management, and AES-256 encrypted local storage.
           </p>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '24px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', color: 'var(--text-muted)', fontSize: '0.88rem', marginBottom: '24px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <CheckCircle2 size={16} color="var(--accent-emerald)" />
-              <span>System Requirements: {downloadInfo.requirements}</span>
+              <span><strong>System Requirements:</strong> Windows 10 / 11 (64-bit)</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <CheckCircle2 size={16} color="var(--accent-emerald)" />
-              <span>Package Size: ~{downloadInfo.size} (Ultra-compact installer)</span>
+              <span><strong>Optimized Footprint:</strong> Fast startup with minimal background memory usage</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <CheckCircle2 size={16} color="var(--accent-emerald)" />
-              <span>SHA-256 Verified & VirusTotal Clean</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <ShieldCheck size={16} color="var(--accent-emerald)" />
+              <span><strong>Security & Integrity:</strong> Digitally signed and malware-verified release</span>
             </div>
           </div>
 
-          <a href={downloadInfo.url} target="_blank" rel="noreferrer" className="btn-gold glow-pulse" style={{ padding: '14px 28px', fontSize: '1rem' }}>
+          <a
+            href={downloadUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-gold glow-pulse"
+            style={{ padding: '14px 28px', fontSize: '1rem', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+          >
             <Download size={18} />
-            Download Ankhvault (.exe)
+            Download Latest Release (.exe)
           </a>
         </div>
 
-        <div className="glass-panel" style={{ padding: '24px', backgroundColor: 'rgba(11, 14, 20, 0.7)', textAlign: 'center' }}>
-          <HardDrive size={40} color="var(--accent-turquoise)" style={{ marginBottom: '12px' }} />
-          <h4 style={{ color: 'var(--text-primary)', fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
-            Release Version 1.0.0
+        <div
+          className="glass-panel"
+          style={{ padding: '28px', backgroundColor: 'rgba(11, 14, 20, 0.7)', textAlign: 'center', borderRadius: '14px' }}
+        >
+          <HardDrive size={44} color="var(--accent-turquoise)" style={{ marginBottom: '14px' }} />
+          <h4 style={{ color: 'var(--text-primary)', fontSize: '1.05rem', fontWeight: 700, marginBottom: '8px' }}>
+            Latest Production Release
           </h4>
-          <span style={{ color: 'var(--accent-turquoise)', fontSize: '0.8rem', backgroundColor: 'rgba(23, 145, 158, 0.2)', padding: '4px 10px', borderRadius: '12px', border: '1px solid rgba(23, 145, 158, 0.3)' }}>
-            Windows 64-bit Desktop Build
+          <span
+            style={{
+              color: 'var(--accent-turquoise)',
+              fontSize: '0.8rem',
+              backgroundColor: 'rgba(23, 145, 158, 0.2)',
+              padding: '4px 12px',
+              borderRadius: '12px',
+              border: '1px solid rgba(23, 145, 158, 0.3)',
+              fontWeight: 600,
+            }}
+          >
+            Windows 64-bit Installer
           </span>
         </div>
       </div>
