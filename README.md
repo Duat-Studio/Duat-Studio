@@ -1,32 +1,48 @@
-# React + TypeScript + Vite
+# ☥ Duat Studio — Official Web Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+The official web platform and developer portal for **Duat Studio**, creators of **Ankhvault Desktop Gaming Launcher & Store**.
 
-Currently, two official plugins are available:
+![Duat Studio Web Portal](https://raw.githubusercontent.com/Duat-Studio/Duat-Studio/main/public/og-image.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Overview
 
-## React Compiler
+**Duat Studio Website** provides a modern, dark-glassmorphic landing page, client download portal, indie developer submission portal, live game catalog viewer, and **MoonPay Commerce Gateway** integration.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the Oxlint configuration
+- **🎮 Game Store Catalog**: Live browsing of flagship games (`Shadow of Kemet`, `Chronicles of Duat`, `Nomad Racer`, `Aegis Protocol`).
+- **👨‍💻 Developer Portal**: Submit indie titles directly to the Ankhvault store with 95% revenue split settings.
+- **💳 MoonPay Commerce Gateway**: Universal checkout supporting Credit Cards, Debit Cards, Apple Pay, Google Pay, USDT, and USDC.
+- **📥 Client Download Portal**: One-click download links for Ankhvault Desktop Client (.exe / Windows).
+- **🔒 Supabase Integration**: Cloud catalog synchronization and developer registration.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## 🛠️ Tech Stack
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+- **Framework**: React 19 + TypeScript + Vite
+- **Styling**: Modern CSS Glassmorphism + Lucide React Icons
+- **Database / Backend**: Supabase Cloud Project (`@supabase/supabase-js`)
+- **Payments**: MoonPay Commerce Web Gateway
+
+## 🏃 Getting Started
+
+### Installation
+
+```bash
+npm install
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Start Development Server
+
+```bash
+npm run dev
+```
+
+### Production Build
+
+```bash
+npm run build
+```
+
+---
+
+&copy; 2026 **Duat Studio**. All rights reserved.
