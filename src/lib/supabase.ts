@@ -38,6 +38,22 @@ export async function fetchCatalogFromSupabase() {
   }
 }
 
+export async function registerUserProfileSupabase(username: string, email: string, role: 'player' | 'developer' = 'player') {
+  try {
+    await supabase.from('user_profiles').upsert(
+      {
+        username,
+        email,
+        role,
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: 'username' }
+    );
+  } catch (err) {
+    console.warn('Error saving user profile to Supabase:', err);
+  }
+}
+
 export async function submitGameToDeveloperPortal(sub: GameSubmission) {
   try {
     // 1. Save developer profile
@@ -46,8 +62,6 @@ export async function submitGameToDeveloperPortal(sub: GameSubmission) {
         {
           developer_name: sub.developer_name,
           email: sub.email,
-          dev_wallet_sol: sub.dev_wallet_sol,
-          dev_wallet_evm: sub.dev_wallet_evm,
           payout_split_percent: 95.00,
         },
         { onConflict: 'developer_name' }
@@ -67,8 +81,6 @@ export async function submitGameToDeveloperPortal(sub: GameSubmission) {
         description: sub.description,
         tag: sub.tag || 'New Release',
         download_url: sub.download_url,
-        dev_wallet_sol: sub.dev_wallet_sol,
-        dev_wallet_evm: sub.dev_wallet_evm,
         is_active: false, // requires Duat Studio review before going live
       },
     ]);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, Lock, User, Mail, Loader2 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { supabase, registerUserProfileSupabase } from '../lib/supabase';
 
 export interface UserSession {
   username: string;
@@ -38,12 +38,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
     setErrorMsg('');
 
     try {
+      const userHandle = username || email.split('@')[0];
       if (isRegister) {
+        await registerUserProfileSupabase(userHandle, email, role);
+
         if (role === 'developer') {
-          const devName = username || email.split('@')[0];
           await supabase.from('developer_profiles').upsert(
             {
-              developer_name: devName,
+              developer_name: userHandle,
               email: email,
               payout_split_percent: 95.0,
             },
@@ -52,20 +54,20 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
         }
 
         const session: UserSession = {
-          username: username || email.split('@')[0],
+          username: userHandle,
           email,
           role,
-          developer_name: role === 'developer' ? username || email.split('@')[0] : undefined,
+          developer_name: role === 'developer' ? userHandle : undefined,
         };
 
         onLoginSuccess(session);
         onClose();
       } else {
         const session: UserSession = {
-          username: username || email.split('@')[0],
+          username: userHandle,
           email,
           role,
-          developer_name: role === 'developer' ? username || email.split('@')[0] : undefined,
+          developer_name: role === 'developer' ? userHandle : undefined,
         };
 
         onLoginSuccess(session);
