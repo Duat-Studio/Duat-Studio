@@ -179,7 +179,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
               <Mail size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
               <input
                 type="email"
-                placeholder="dev@studio.com"
+                placeholder={role === 'developer' ? 'dev@studio.com' : 'player@email.com'}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 style={{ width: '100%', padding: '10px 10px 10px 36px', backgroundColor: 'rgba(11, 14, 20, 0.8)', border: '1px solid var(--border-stroke)', borderRadius: '8px', color: 'var(--text-primary)', outline: 'none' }}
@@ -248,7 +248,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
         </form>
 
         <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-          {isRegister ? 'Already have an account?' : "Don't have a developer account?"}{' '}
+          {isRegister ? 'Already have an account?' : `Don't have a ${role === 'developer' ? 'developer' : 'player'} account?`}{' '}
           <button
             type="button"
             onClick={() => { setIsRegister(!isRegister); setErrorMsg(''); }}
