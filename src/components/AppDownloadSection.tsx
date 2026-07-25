@@ -7,7 +7,7 @@ export const AppDownloadSection: React.FC = () => {
     file: 'Ankhvault_1.0.0_x64-setup.exe',
     size: '18.4 MB',
     requirements: 'Windows 10 / 11 (64-bit)',
-    url: 'https://github.com/Duat-Studio/Ankhvault/releases',
+    url: 'https://github.com/Duat-Studio/Ankhvault/releases/latest/download/Ankhvault_1.0.0_x64-setup.exe',
   };
 
   return (
