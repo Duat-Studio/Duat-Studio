@@ -5,6 +5,7 @@ import { AppDownloadSection } from './components/AppDownloadSection';
 import { DeveloperPortalSection } from './components/DeveloperPortalSection';
 import { StoreCatalogSection } from './components/StoreCatalogSection';
 import { Web3SettlementSection } from './components/Web3SettlementSection';
+import { AboutSection } from './components/AboutSection';
 import { Footer } from './components/Footer';
 import { AuthModal } from './components/AuthModal';
 import type { UserSession } from './components/AuthModal';
@@ -69,7 +70,7 @@ export function App() {
           />
         )}
 
-        {activeTab === 'web3' && <Web3SettlementSection />}
+        {activeTab === 'about' && <AboutSection />}
       </main>
 
       <Footer />

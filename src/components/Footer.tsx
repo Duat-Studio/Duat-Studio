@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
           <img src={logoImg} alt="Duat Studio Logo" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
           <span style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '1.1rem', fontWeight: 800 }}>DUAT STUDIO</span>
           <span>•</span>
-          <span>Ankhvault Desktop Game Launcher (Windows & Linux)</span>
+          <span>Ankhvault Desktop Game Launcher (Windows .exe)</span>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Download, Sparkles, Gamepad2, UploadCloud, ShieldCheck, User, LogOut } from 'lucide-react';
+import { Download, Sparkles, Gamepad2, UploadCloud, User, LogOut, Info } from 'lucide-react';
 import logoImg from '../assets/logo.png';
 import type { UserSession } from './AuthModal';
 
@@ -24,7 +24,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, session
 
   return (
     <header style={{ position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(16px)', backgroundColor: 'rgba(11, 14, 20, 0.88)', borderBottom: '1px solid var(--border-stroke)', width: '100%' }}>
-      <div style={{ width: '100%', maxWidth: '1400px', margin: '0 auto', padding: '12px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxSizing: 'border-box' }}>
+      <div style={{ width: '100%', maxWidth: '1400px', margin: '0 auto', padding: '14px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxSizing: 'border-box' }}>
         {/* Official Brand Logo */}
         <div onClick={() => setActiveTab('home')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '14px' }}>
           <img
@@ -33,12 +33,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, session
             style={{ width: '42px', height: '42px', objectFit: 'contain', filter: 'drop-shadow(0 2px 8px rgba(212, 175, 55, 0.4))' }}
           />
           <div>
-            <h1 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '1.35rem', fontWeight: 800, letterSpacing: '1px', lineHeight: 1 }}>
+            <h1 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '1.35rem', fontWeight: 800, letterSpacing: '1px', lineHeight: 1, margin: 0 }}>
               DUAT STUDIO
             </h1>
-            <span style={{ color: 'var(--text-muted)', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 600 }}>
-              Ankhvault Platform
-            </span>
           </div>
         </div>
 
@@ -126,14 +123,15 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, session
             Developer Portal {isDev ? '⚡' : '🔒'}
           </button>
 
+          {/* About Us Tab */}
           <button
-            onClick={() => setActiveTab('web3')}
+            onClick={() => setActiveTab('about')}
             style={{
               padding: '8px 16px',
               borderRadius: '8px',
-              border: activeTab === 'web3' ? '1px solid var(--accent-gold)' : '1px solid transparent',
-              backgroundColor: activeTab === 'web3' ? 'rgba(212, 175, 55, 0.12)' : 'transparent',
-              color: activeTab === 'web3' ? 'var(--accent-gold)' : 'var(--text-secondary)',
+              border: activeTab === 'about' ? '1px solid var(--accent-gold)' : '1px solid transparent',
+              backgroundColor: activeTab === 'about' ? 'rgba(212, 175, 55, 0.12)' : 'transparent',
+              color: activeTab === 'about' ? 'var(--accent-gold)' : 'var(--text-secondary)',
               fontWeight: 600,
               fontSize: '0.88rem',
               cursor: 'pointer',
@@ -142,8 +140,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, session
               gap: '6px',
             }}
           >
-            <ShieldCheck size={16} color={activeTab === 'web3' ? 'var(--accent-gold)' : 'var(--text-muted)'} />
-            x402 Protocol
+            <Info size={16} color={activeTab === 'about' ? 'var(--accent-gold)' : 'var(--text-muted)'} />
+            About Us
           </button>
         </nav>
 

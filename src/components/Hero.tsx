@@ -23,7 +23,7 @@ export const Hero: React.FC<HeroProps> = ({ onDownloadClick, onPublishClick }) =
       <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(212, 175, 55, 0.12)', border: '1px solid rgba(212, 175, 55, 0.3)', padding: '6px 16px', borderRadius: '20px', marginBottom: '24px' }}>
         <Award size={16} color="var(--accent-gold)" />
         <span style={{ color: 'var(--accent-gold)', fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.5px' }}>
-          DUAT STUDIO • ANKHVAULT PLATFORM
+          DUAT STUDIO • ANKHVAULT LAUNCHER
         </span>
       </div>
 
@@ -34,7 +34,7 @@ export const Hero: React.FC<HeroProps> = ({ onDownloadClick, onPublishClick }) =
 
       {/* Subtitle */}
       <p style={{ color: 'var(--text-secondary)', fontSize: '1.25rem', maxWidth: '820px', margin: '0 auto 40px', lineHeight: 1.6, fontWeight: 400 }}>
-        Ankhvault is an ultra-fast Rust + Tauri 2.0 desktop game launcher built for Windows & Linux. Enjoy <strong style={{ color: 'var(--accent-gold)' }}>95% revenue retention</strong> with instant 1:1 USD Stablecoin settlement.
+        Ankhvault is an ultra-fast Rust + Tauri 2.0 desktop game launcher built for Windows (.exe). Enjoy <strong style={{ color: 'var(--accent-gold)' }}>95% revenue retention</strong> with instant MoonPay Commerce settlement.
       </p>
 
       {/* CTA Button Pair */}
@@ -69,10 +69,10 @@ export const Hero: React.FC<HeroProps> = ({ onDownloadClick, onPublishClick }) =
             <ShieldCheck size={24} color="var(--accent-turquoise)" />
           </div>
           <h3 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-turquoise)', fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>
-            ⚡ Stablecoin x402 Gateway
+            ⚡ MoonPay Commerce
           </h3>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.5 }}>
-            Accept 1:1 USD Stablecoin payments (USDT & USDC) on Solana & Base EVM networks with mobile QR code support.
+            Accept Credit/Debit Cards, Apple Pay, Google Pay, USDT, and USDC with instant USD settlement.
           </p>
         </div>
 
@@ -84,7 +84,7 @@ export const Hero: React.FC<HeroProps> = ({ onDownloadClick, onPublishClick }) =
             🚀 Rust + Tauri 2.0 Engine
           </h3>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.5 }}>
-            Native Windows & Linux client with sub-50MB RAM consumption, AES-256 binary vault database encryption, and direct downloads.
+            Native Windows (.exe) client with sub-50MB RAM consumption, AES-256 binary vault database encryption, and direct downloads.
           </p>
         </div>
       </div>
