@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UploadCloud, Sparkles, Loader2, Server, Lock, UserCheck, ShieldCheck, CheckCircle2, ShieldAlert, Zap, Layers, FileCheck } from 'lucide-react';
+import { Sparkles, Loader2, Lock, UserCheck, ShieldCheck, CheckCircle2, ShieldAlert, Zap, FileCheck } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { submitGameToDeveloperPortal } from '../lib/supabase';
 import type { UserSession } from './AuthModal';
