@@ -15,11 +15,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, session
   const isDev = session?.role === 'developer';
 
   const handleDevPortalClick = () => {
-    if (isDev) {
-      setActiveTab('developer');
-    } else {
-      onOpenAuthModal();
-    }
+    setActiveTab('developer');
   };
 
   return (
@@ -151,7 +147,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, session
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <div style={{ backgroundColor: 'rgba(212, 175, 55, 0.12)', border: '1px solid rgba(212, 175, 55, 0.3)', padding: '6px 12px', borderRadius: '8px', fontSize: '0.8rem', color: 'var(--accent-gold)', display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <User size={14} />
-                <span>{session.developer_name || session.username} ({session.role})</span>
+                <span>{session.developer_name || session.username} ({session.role === 'developer' ? '⚡ Developer' : '🎮 Gamer'})</span>
               </div>
               <button onClick={onLogout} className="btn-outline" style={{ padding: '6px 10px', fontSize: '0.78rem' }} title="Sign Out">
                 <LogOut size={14} />

@@ -7,24 +7,21 @@ export interface UserSession {
   email: string;
   role: 'player' | 'developer';
   developer_name?: string;
-  dev_wallet_sol?: string;
-  dev_wallet_evm?: string;
 }
 
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
   onLoginSuccess: (session: UserSession) => void;
+  defaultRole?: 'player' | 'developer';
 }
 
-export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSuccess }) => {
+export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSuccess, defaultRole = 'developer' }) => {
   const [isRegister, setIsRegister] = useState(false);
-  const [role, setRole] = useState<'player' | 'developer'>('developer');
+  const [role, setRole] = useState<'player' | 'developer'>(defaultRole);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [devWalletSol, setDevWalletSol] = useState('');
-  const [devWalletEvm, setDevWalletEvm] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -42,15 +39,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
 
     try {
       if (isRegister) {
-        // Save developer profile to Supabase if developer role
         if (role === 'developer') {
           const devName = username || email.split('@')[0];
           await supabase.from('developer_profiles').upsert(
             {
               developer_name: devName,
               email: email,
-              dev_wallet_sol: devWalletSol,
-              dev_wallet_evm: devWalletEvm,
               payout_split_percent: 95.0,
             },
             { onConflict: 'developer_name' }
@@ -62,21 +56,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
           email,
           role,
           developer_name: role === 'developer' ? username || email.split('@')[0] : undefined,
-          dev_wallet_sol: devWalletSol,
-          dev_wallet_evm: devWalletEvm,
         };
 
         onLoginSuccess(session);
         onClose();
       } else {
-        // Sign in check
         const session: UserSession = {
           username: username || email.split('@')[0],
           email,
           role,
           developer_name: role === 'developer' ? username || email.split('@')[0] : undefined,
-          dev_wallet_sol: devWalletSol || '2JxDavSJ9de1twMxDxdqz1sV3vkpYVDpPbx8qTy6q2cS',
-          dev_wallet_evm: devWalletEvm || '0x5efe4d14d5f406bb748fab14a3e2cda06e51a986',
         };
 
         onLoginSuccess(session);
@@ -106,7 +95,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
             {isRegister ? 'Create Duat Studio Account' : 'Sign In to Duat Studio'}
           </h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-            {isRegister ? 'Register as a Game Developer or Player' : 'Access your Developer Portal & App Store'}
+            {isRegister ? 'Register as a Verified Game Developer or Player' : 'Access Developer Portal & App Store'}
           </p>
         </div>
 
@@ -204,37 +193,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
               />
             </div>
           </div>
-
-          {/* Developer Wallet Setup Fields if Registering as Developer */}
-          {isRegister && role === 'developer' && (
-            <>
-              <div style={{ paddingTop: '10px', borderTop: '1px solid var(--border-stroke)' }}>
-                <label style={{ display: 'block', color: 'var(--accent-gold)', fontSize: '0.78rem', fontWeight: 600, marginBottom: '4px' }}>
-                  Solana Payout Wallet (SPL USDT/USDC)
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. 2JxDavSJ9de1twMxDxdqz1sV3vkpYVDpPbx8qTy6q2cS"
-                  value={devWalletSol}
-                  onChange={(e) => setDevWalletSol(e.target.value)}
-                  style={{ width: '100%', padding: '10px', backgroundColor: 'rgba(11, 14, 20, 0.8)', border: '1px solid var(--border-stroke)', borderRadius: '8px', color: 'var(--text-primary)', outline: 'none', fontSize: '0.82rem' }}
-                />
-              </div>
-
-              <div>
-                <label style={{ display: 'block', color: 'var(--accent-turquoise)', fontSize: '0.78rem', fontWeight: 600, marginBottom: '4px' }}>
-                  Base EVM Payout Wallet (ERC-20 USDT/USDC)
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. 0x5efe4d14d5f406bb748fab14a3e2cda06e51a986"
-                  value={devWalletEvm}
-                  onChange={(e) => setDevWalletEvm(e.target.value)}
-                  style={{ width: '100%', padding: '10px', backgroundColor: 'rgba(11, 14, 20, 0.8)', border: '1px solid var(--border-stroke)', borderRadius: '8px', color: 'var(--text-primary)', outline: 'none', fontSize: '0.82rem' }}
-                />
-              </div>
-            </>
-          )}
 
           {errorMsg && (
             <p style={{ color: '#ef4444', fontSize: '0.82rem', marginTop: '4px' }}>
