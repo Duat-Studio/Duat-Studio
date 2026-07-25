@@ -1,7 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://nehtpnrmkipmikutcjbr.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_6eDmlkZxa0YnaWb6KkwRIQ_XtcNVlze';
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY environment variables. Copy .env.example to .env and fill in your values.');
+}
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
@@ -36,7 +40,7 @@ export async function fetchCatalogFromSupabase() {
 
 export async function submitGameToDeveloperPortal(sub: GameSubmission) {
   try {
-    // 1. Save developer profile in developer_profiles table
+    // 1. Save developer profile
     if (sub.developer_name && sub.email) {
       await supabase.from('developer_profiles').upsert(
         {
@@ -50,7 +54,7 @@ export async function submitGameToDeveloperPortal(sub: GameSubmission) {
       );
     }
 
-    // 2. Save game entry in catalog_games table
+    // 2. Submit game — starts as inactive pending review
     const gameId = `dev_${Date.now()}`;
     const { error } = await supabase.from('catalog_games').insert([
       {
@@ -61,11 +65,11 @@ export async function submitGameToDeveloperPortal(sub: GameSubmission) {
         price: sub.price,
         rating: 5.0,
         description: sub.description,
-        tag: sub.tag || 'Indie Spotlight',
+        tag: sub.tag || 'New Release',
         download_url: sub.download_url,
         dev_wallet_sol: sub.dev_wallet_sol,
         dev_wallet_evm: sub.dev_wallet_evm,
-        is_active: true,
+        is_active: false, // requires Duat Studio review before going live
       },
     ]);
 

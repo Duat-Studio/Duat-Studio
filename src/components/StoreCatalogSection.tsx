@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Star, Monitor, Download, X } from 'lucide-react';
+import { Star, Monitor, Download } from 'lucide-react';
 import { fetchCatalogFromSupabase } from '../lib/supabase';
 
 interface GameItem {
@@ -19,6 +19,7 @@ interface StoreCatalogSectionProps {
 
 export const StoreCatalogSection: React.FC<StoreCatalogSectionProps> = ({ onGoToDownloadApp }) => {
   const [games, setGames] = useState<GameItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedGenre, setSelectedGenre] = useState<string>('All');
   const [selectedGamePrompt, setSelectedGamePrompt] = useState<GameItem | null>(null);
 
@@ -37,22 +38,13 @@ export const StoreCatalogSection: React.FC<StoreCatalogSectionProps> = ({ onGoTo
             developer_name: item.developer_name || 'Independent Publisher',
           }))
         );
-      } else {
-        // Default catalog fallback
-        setGames([
-          { id: 'kemet', title: 'Shadow of Kemet', category: 'Action / RPG', price: 14.99, rating: 4.9, description: 'Unravel ancient temple mysteries and slay mythical guardians in ancient Egypt.', tag: 'Flagship Title', developer_name: 'Duat Studio' },
-          { id: 'racer', title: 'Nomad Racer', category: 'Cyberpunk Racing', price: 9.99, rating: 4.7, description: 'High-octane neon drag racing across futuristic desert highways.', tag: 'Best Seller', developer_name: 'Apex Velocity' },
-          { id: 'aegis', title: 'Aegis Protocol', category: 'Tactical Shooter', price: 0.00, rating: 4.8, description: 'Competitive squad tactics and cybernetic combat in a dystopian city.', tag: 'Free to Play', developer_name: 'Ironclad Interactive' },
-          { id: 'duat', title: 'Chronicles of Duat', category: 'Strategy / Deckbuilder', price: 4.99, rating: 4.6, description: 'Master ritual spells and summon celestial pharaohs in turn-based combat.', tag: 'New Release', developer_name: 'Duat Studio' },
-          { id: 'neon', title: 'Neon Odyssey', category: 'Space Simulator', price: 14.99, rating: 4.9, description: 'Explore uncharted galaxy sectors, mine rare plasma ores, and command dreadnoughts.', tag: 'Featured', developer_name: 'SynthWave Interactive' },
-        ]);
       }
+      setLoading(false);
     });
   }, []);
 
-  const genres = ['All', 'Action / RPG', 'Cyberpunk Racing', 'Tactical Shooter', 'Strategy / Deckbuilder', 'Space Simulator'];
-
-  const filteredGames = selectedGenre === 'All' ? games : games.filter((g) => g.category.includes(selectedGenre));
+  const allGenres = ['All', ...Array.from(new Set(games.map((g) => g.category)))];
+  const filteredGames = selectedGenre === 'All' ? games : games.filter((g) => g.category === selectedGenre);
 
   return (
     <section style={{ padding: '60px 24px', maxWidth: '1280px', margin: '0 auto' }}>
@@ -65,103 +57,104 @@ export const StoreCatalogSection: React.FC<StoreCatalogSectionProps> = ({ onGoTo
         </p>
       </div>
 
-      {/* Genre Filter Buttons */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '36px', flexWrap: 'wrap' }}>
-        {genres.map((genre) => (
-          <button
-            key={genre}
-            onClick={() => setSelectedGenre(genre)}
-            style={{
-              padding: '8px 18px',
-              borderRadius: '20px',
-              border: selectedGenre === genre ? '1px solid var(--accent-gold)' : '1px solid var(--border-stroke)',
-              backgroundColor: selectedGenre === genre ? 'rgba(212, 175, 55, 0.18)' : 'transparent',
-              color: selectedGenre === genre ? 'var(--accent-gold)' : 'var(--text-secondary)',
-              fontWeight: 600,
-              fontSize: '0.85rem',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            {genre}
+      {loading ? (
+        <div style={{ textAlign: 'center', padding: '80px 24px' }}>
+          <div style={{ color: 'var(--text-muted)', fontSize: '1rem' }}>Loading catalog...</div>
+        </div>
+      ) : games.length === 0 ? (
+        <div className="glass-panel" style={{ padding: '80px 32px', textAlign: 'center', maxWidth: '560px', margin: '0 auto' }}>
+          <Monitor size={48} color="var(--accent-gold)" style={{ opacity: 0.5, marginBottom: '20px' }} />
+          <h3 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--text-primary)', fontSize: '1.4rem', marginBottom: '12px' }}>
+            Store Launching Soon
+          </h3>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', marginBottom: '28px', lineHeight: 1.6 }}>
+            The Ankhvault catalog is being curated. Be the first developer to list your game — 95% revenue, zero storage fees.
+          </p>
+          <button className="btn-gold" onClick={onGoToDownloadApp} style={{ margin: '0 auto' }}>
+            <Download size={18} />
+            Download Ankhvault Launcher
           </button>
-        ))}
-      </div>
-
-      {/* Game Cards Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px' }}>
-        {filteredGames.map((game) => (
-          <div key={game.id} className="glass-panel glass-panel-interactive" style={{ padding: '24px', display: 'flex', flexDirection: 'column', height: '100%' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-              <span style={{ backgroundColor: 'rgba(23, 145, 158, 0.2)', color: 'var(--accent-turquoise)', fontSize: '0.72rem', fontWeight: 700, padding: '4px 10px', borderRadius: '6px', border: '1px solid rgba(23, 145, 158, 0.3)' }}>
-                {game.tag}
-              </span>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#fbbf24', fontSize: '0.85rem', fontWeight: 600 }}>
-                <Star size={14} fill="#fbbf24" />
-                {game.rating.toFixed(1)}
-              </div>
-            </div>
-
-            <h3 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '1.25rem', fontWeight: 700, marginBottom: '4px' }}>
-              {game.title}
-            </h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.78rem', fontWeight: 500, marginBottom: '12px' }}>
-              {game.category} • {game.developer_name}
-            </p>
-
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.5, marginBottom: '20px', flexGrow: 1 }}>
-              {game.description}
-            </p>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14px', borderTop: '1px solid var(--border-stroke)', marginTop: 'auto' }}>
-              <div>
-                <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', display: 'block' }}>Price</span>
-                <span style={{ fontSize: '1.2rem', color: game.price === 0 ? 'var(--accent-emerald)' : 'var(--text-primary)', fontWeight: 800 }}>
-                  {game.price === 0 ? 'Free to Play' : `$${game.price.toFixed(2)}`}
-                </span>
-              </div>
-
-              {/* Action Button: Prompts user to open/download Ankhvault Launcher */}
+        </div>
+      ) : (
+        <>
+          {/* Genre Filter */}
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '36px', flexWrap: 'wrap' }}>
+            {allGenres.map((genre) => (
               <button
-                onClick={() => setSelectedGamePrompt(game)}
-                className="btn-gold"
-                style={{ padding: '8px 16px', fontSize: '0.85rem' }}
+                key={genre}
+                onClick={() => setSelectedGenre(genre)}
+                style={{
+                  padding: '8px 18px',
+                  borderRadius: '20px',
+                  border: selectedGenre === genre ? '1px solid var(--accent-gold)' : '1px solid var(--border-stroke)',
+                  background: selectedGenre === genre ? 'rgba(212, 175, 55, 0.15)' : 'transparent',
+                  color: selectedGenre === genre ? 'var(--accent-gold)' : 'var(--text-muted)',
+                  cursor: 'pointer',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  transition: 'all 0.2s',
+                }}
               >
-                <Monitor size={14} />
-                Play in Launcher
+                {genre}
+              </button>
+            ))}
+          </div>
+
+          {/* Game Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
+            {filteredGames.map((game) => (
+              <div
+                key={game.id}
+                className="glass-panel glass-panel-interactive"
+                style={{ padding: '24px', cursor: 'pointer', position: 'relative' }}
+                onClick={() => setSelectedGamePrompt(game)}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 700, padding: '4px 10px', borderRadius: '20px', background: 'rgba(212,175,55,0.15)', color: 'var(--accent-gold)', border: '1px solid rgba(212,175,55,0.3)' }}>
+                    {game.tag}
+                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#F59E0B', fontSize: '0.85rem' }}>
+                    <Star size={14} fill="currentColor" />
+                    {game.rating.toFixed(1)}
+                  </div>
+                </div>
+                <h3 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--text-primary)', fontSize: '1.15rem', fontWeight: 700, marginBottom: '6px' }}>
+                  {game.title}
+                </h3>
+                <p style={{ color: 'var(--accent-turquoise)', fontSize: '0.78rem', fontWeight: 600, marginBottom: '8px' }}>
+                  {game.category}
+                </p>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: 1.5, marginBottom: '16px' }}>
+                  {game.description}
+                </p>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '1.2rem', fontWeight: 800 }}>
+                    {game.price === 0 ? 'FREE' : `$${game.price.toFixed(2)}`}
+                  </span>
+                  <span style={{ color: 'var(--text-muted)', fontSize: '0.78rem' }}>{game.developer_name}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* Game Detail Prompt */}
+      {selectedGamePrompt && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '24px' }} onClick={() => setSelectedGamePrompt(null)}>
+          <div className="glass-panel" style={{ maxWidth: '480px', width: '100%', padding: '36px' }} onClick={(e) => e.stopPropagation()}>
+            <h3 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '1.5rem', marginBottom: '8px' }}>{selectedGamePrompt.title}</h3>
+            <p style={{ color: 'var(--accent-turquoise)', fontSize: '0.85rem', marginBottom: '16px' }}>{selectedGamePrompt.category} · {selectedGamePrompt.developer_name}</p>
+            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '28px' }}>{selectedGamePrompt.description}</p>
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <button className="btn-gold" onClick={onGoToDownloadApp} style={{ flex: 1, justifyContent: 'center' }}>
+                <Monitor size={16} />
+                Get in Ankhvault App
+              </button>
+              <button onClick={() => setSelectedGamePrompt(null)} style={{ padding: '10px 20px', borderRadius: '8px', border: '1px solid var(--border-stroke)', background: 'transparent', color: 'var(--text-muted)', cursor: 'pointer' }}>
+                Close
               </button>
             </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Modal Prompt: Games can only be downloaded inside Ankhvault Launcher */}
-      {selectedGamePrompt && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(5, 7, 10, 0.88)', backdropFilter: 'blur(12px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '20px' }}>
-          <div className="glass-panel animate-fade-in" style={{ width: '480px', padding: '32px', textAlign: 'center', position: 'relative', border: '1px solid var(--accent-gold)' }}>
-            <button onClick={() => setSelectedGamePrompt(null)} style={{ position: 'absolute', right: '20px', top: '20px', background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>
-              <X size={20} />
-            </button>
-
-            <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: 'rgba(212, 175, 55, 0.15)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-              <Monitor size={28} color="var(--accent-gold)" />
-            </div>
-
-            <h3 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '1.4rem', fontWeight: 800, marginBottom: '8px' }}>
-              Play {selectedGamePrompt.title}
-            </h3>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: '24px' }}>
-              To ensure vault security and instant installations, games can <strong>only be purchased, downloaded, and launched inside the Ankhvault Desktop App</strong>.
-            </p>
-
-            <button
-              className="btn-gold glow-pulse"
-              onClick={() => { setSelectedGamePrompt(null); onGoToDownloadApp(); }}
-              style={{ width: '100%', justifyContent: 'center', padding: '14px', fontSize: '1rem' }}
-            >
-              <Download size={18} />
-              Download Ankhvault Launcher (.exe)
-            </button>
           </div>
         </div>
       )}
