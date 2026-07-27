@@ -6,13 +6,13 @@ The official web platform and developer portal for **Duat Studio**, creators of 
 
 ## 🚀 Overview
 
-**Duat Studio Website** provides a modern, dark-glassmorphic landing page, client download portal, indie developer submission portal, live game catalog viewer, and **MoonPay Commerce Gateway** integration.
+**Duat Studio Website** provides a modern, dark-glassmorphic landing page, client download portal, indie developer submission portal, live game catalog viewer, and **x402 Web3 Payment Protocol (Demo)** integration.
 
 ## ✨ Features
 
 - **🎮 Game Store Catalog**: Live browsing of flagship games (`Shadow of Kemet`, `Chronicles of Duat`, `Nomad Racer`, `Aegis Protocol`).
 - **👨‍💻 Developer Portal**: Submit indie titles directly to the Ankhvault store with 95% revenue split settings.
-- **💳 MoonPay Commerce Gateway**: Universal checkout supporting Credit Cards, Debit Cards, Apple Pay, Google Pay, USDT, and USDC.
+- **💳 x402 Web3 Payment Protocol**: Simulated Web3 checkout supporting USDT and USDC USD Stablecoins.
 - **📥 Client Download Portal**: One-click download links for Ankhvault Desktop Client (.exe / Windows).
 - **🔒 Supabase Integration**: Cloud catalog synchronization and developer registration.
 
@@ -21,7 +21,7 @@ The official web platform and developer portal for **Duat Studio**, creators of 
 - **Framework**: React 19 + TypeScript + Vite
 - **Styling**: Modern CSS Glassmorphism + Lucide React Icons
 - **Database / Backend**: Supabase Cloud Project (`@supabase/supabase-js`)
-- **Payments**: MoonPay Commerce Web Gateway
+- **Payments**: x402 Web3 Payment Protocol (Demo)
 
 ## 🏃 Getting Started
 

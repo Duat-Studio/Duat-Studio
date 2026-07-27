@@ -6,10 +6,10 @@ export const Web3SettlementSection: React.FC = () => {
     <section style={{ padding: '60px 24px', maxWidth: '1100px', margin: '0 auto' }}>
       <div style={{ textAlign: 'center', marginBottom: '40px' }}>
         <h2 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '2.4rem', fontWeight: 800, marginBottom: '12px' }}>
-          MOONPAY COMMERCE PAYMENT GATEWAY
+          x402 WEB3 PAYMENT PROTOCOL (DEMO)
         </h2>
         <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', maxWidth: '680px', margin: '0 auto' }}>
-          Seamless Cards, Mobile Pay & Stablecoin Checkout • Instant Settlement • 95% Developer Revenue Payout
+          Simulated 1:1 USD Stablecoin Checkout • Instant Settlement • 95% Developer Revenue Payout
         </p>
       </div>
 
@@ -21,21 +21,21 @@ export const Web3SettlementSection: React.FC = () => {
               <CreditCard size={22} color="var(--accent-gold)" />
             </div>
             <h3 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-gold)', fontSize: '1.3rem', fontWeight: 700 }}>
-              Universal MoonPay Commerce Checkout
+              x402 Protocol Web3 Checkout (Demo)
             </h3>
           </div>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: '16px' }}>
-            Gamers can purchase games effortlessly using Visa, Mastercard, Apple Pay, Google Pay, or USD Stablecoins (USDT & USDC). MoonPay Commerce provides friction-free 1-step checkout.
+            Gamers can simulate purchasing titles using USD Stablecoins (USDT & USDC) on Solana or EVM networks. x402 Protocol provides zero-friction demo checkout.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <CheckCircle2 size={16} color="var(--accent-emerald)" />
-              <span>Credit & Debit Cards, Apple Pay, Google Pay Supported</span>
+              <span>Supported Networks: Solana (SPL) & Base (EVM)</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <CheckCircle2 size={16} color="var(--accent-emerald)" />
-              <span>Crypto Tokens: USDT (Tether) & USDC (USD Coin)</span>
+              <span>Supported Tokens: USDT (Tether) & USDC (USD Coin)</span>
             </div>
           </div>
         </div>
@@ -51,7 +51,7 @@ export const Web3SettlementSection: React.FC = () => {
             </h3>
           </div>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: '16px' }}>
-            Once purchase order status is confirmed by MoonPay Commerce, 95% of gross revenue is automatically disbursed directly to the developer's registered account or payout wallet.
+            Once x402 transaction signature is verified, 95% of gross revenue is automatically recorded and disbursed directly to the developer's account or wallet.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', color: 'var(--text-muted)', fontSize: '0.85rem' }}>

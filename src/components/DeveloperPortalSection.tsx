@@ -127,7 +127,7 @@ export const DeveloperPortalSection: React.FC<DeveloperPortalSectionProps> = ({ 
       if (res.success) {
         setScanStage('submitted');
         setSuccessMsg(
-          `Security Scan Passed! "${formData.title}" has been submitted to the Ankhvault Store Catalog review queue. Revenue will settle automatically via MoonPay Commerce.`
+          `Security Scan Passed! "${formData.title}" has been submitted to the Ankhvault Store Catalog review queue. Revenue will settle automatically via x402 Payment Protocol.`
         );
         confetti({ particleCount: 140, spread: 90, origin: { y: 0.6 } });
         setFormData({
@@ -229,7 +229,7 @@ export const DeveloperPortalSection: React.FC<DeveloperPortalSectionProps> = ({ 
         </p>
       </div>
 
-      {/* MoonPay Commerce Settlement Info Banner */}
+      {/* x402 Web3 Protocol Settlement Info Banner */}
       <div
         className="glass-panel"
         style={{
@@ -259,10 +259,10 @@ export const DeveloperPortalSection: React.FC<DeveloperPortalSectionProps> = ({ 
         </div>
         <div>
           <h4 style={{ color: 'var(--accent-turquoise)', fontSize: '1.05rem', fontWeight: 700, marginBottom: '4px' }}>
-            ⚡ MoonPay Commerce Instant Settlement
+            ⚡ x402 Payment Protocol Instant Settlement (Demo)
           </h4>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.5 }}>
-            Revenue payouts are processed directly through MoonPay Commerce (Cards, Apple Pay, Google Pay, USDT & USDC). Developer payout wallet configuration will activate automatically once MoonPay API review concludes.
+            Revenue payouts are processed directly through x402 Payment Protocol (USDT & USDC 1:1 USD settlement). Instant 95% revenue disbursement to registered developer payout wallet.
           </p>
         </div>
       </div>

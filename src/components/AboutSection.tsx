@@ -44,7 +44,7 @@ export const AboutSection: React.FC = () => {
             </h3>
           </div>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.94rem', lineHeight: 1.7 }}>
-            Traditional storefronts take 30% of developer earnings. At Duat Studio, creators retain <strong>95% of gross revenue</strong> on every sale. With MoonPay Commerce integration, developers enjoy instant settlement across global payment methods including credit cards, Apple Pay, Google Pay, and USD Stablecoins.
+            Traditional storefronts take 30% of developer earnings. At Duat Studio, creators retain <strong>95% of gross revenue</strong> on every sale. With x402 Payment Protocol integration, developers enjoy instant settlement across USD Stablecoins (USDT & USDC).
           </p>
         </div>
       </div>

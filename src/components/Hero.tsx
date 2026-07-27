@@ -34,7 +34,7 @@ export const Hero: React.FC<HeroProps> = ({ onDownloadClick, onPublishClick }) =
 
       {/* Subtitle */}
       <p style={{ color: 'var(--text-secondary)', fontSize: '1.25rem', maxWidth: '820px', margin: '0 auto 40px', lineHeight: 1.6, fontWeight: 400 }}>
-        Ankhvault is an ultra-fast Rust + Tauri 2.0 desktop game launcher built for Windows (.exe). Enjoy <strong style={{ color: 'var(--accent-gold)' }}>95% revenue retention</strong> with instant MoonPay Commerce settlement.
+        Ankhvault is an ultra-fast Rust + Tauri 2.0 desktop game launcher built for Windows (.exe). Enjoy <strong style={{ color: 'var(--accent-gold)' }}>95% revenue retention</strong> with instant x402 Web3 Protocol settlement.
       </p>
 
       {/* CTA Button Pair */}
@@ -69,10 +69,10 @@ export const Hero: React.FC<HeroProps> = ({ onDownloadClick, onPublishClick }) =
             <ShieldCheck size={24} color="var(--accent-turquoise)" />
           </div>
           <h3 style={{ fontFamily: 'var(--font-cinzel)', color: 'var(--accent-turquoise)', fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>
-            ⚡ MoonPay Commerce
+            ⚡ x402 Web3 Protocol (Demo)
           </h3>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.5 }}>
-            Accept Credit/Debit Cards, Apple Pay, Google Pay, USDT, and USDC with instant USD settlement.
+            Accept 1:1 USD Stablecoins (USDT & USDC) with instant simulated on-chain settlement.
           </p>
         </div>
 
