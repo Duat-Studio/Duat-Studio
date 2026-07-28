@@ -1,6 +1,12 @@
-# ☥ Duat Studio — Official Web Portal
+<div align="center">
 
-The official web platform and developer portal for **Duat Studio**, creators of **Ankhvault Desktop Gaming Launcher & Store**.
+  <img src="../assets/Duat%20Studio%20Logo_Compressed.png" alt="Duat Studio Logo" width="320" />
+
+  # ☥ Duat Studio — Official Web Portal
+
+  The official web platform and developer portal for **Duat Studio**, creators of **Ankhvault Desktop Gaming Launcher & Store**.
+
+</div>
 
 [![Live Website](https://img.shields.io/badge/Website-duat--studio--website.vercel.app-gold.svg?style=for-the-badge&logo=vercel)](https://duat-studio-website.vercel.app/)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Duat--Studio-blue.svg?style=for-the-badge&logo=github)](https://github.com/Duat-Studio/Duat-Studio)
