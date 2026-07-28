@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="../assets/Duat%20Studio%20Logo_Compressed.png" alt="Duat Studio Logo" width="320" />
+  <img src="public/Duat%20Studio%20Logo_Compressed.png" alt="Duat Studio Logo" width="320" />
 
   # ☥ Duat Studio — Official Web Portal
 
